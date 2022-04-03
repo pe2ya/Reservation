@@ -1,0 +1,40 @@
+<nav>
+    <div class="logo">
+        <a href="#">
+            <div class="img-container"><img src="https://raw.githubusercontent.com/pe2ya/pe2ya.github.io/cdd2bed0da8ca09e51bc3588621ae2784fa90a3e/Images/logo.png"></div>
+            Pe2Ya
+        </a>
+    </div>
+        <ul class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="#">List</a></li>
+            <li><a href="#">About us</a></li>
+        </ul>  
+    <div class="user">
+        <label>
+            <ion-icon name="person-outline"></ion-icon>
+            <button id="show-login"></button>
+        </label>
+    </div>
+
+    <div class="form-window" id="login-form">
+        <form class="form-content" method="POST" action="/api/user/login">
+            <h1>
+                Login
+            </h1>
+
+            <div class="container">
+                <input type="text" placeholder="Enter Login" name="login" id="user-login">
+                <input type="password" placeholder="Enter Password" name="password" id="user-passw">
+            </div>
+            <div class="container">
+                <button type="submit" id="login-comfirm">Comfirm</button>
+                <p><a href="/signup">Don't have an account?</a></p>
+            </div>
+        </form>
+        
+    </div>
+
+</nav>
+
+<script src="/login.js"></script>

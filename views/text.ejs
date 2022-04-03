@@ -1,0 +1,20 @@
+<%- include("header.ejs")%>
+
+<button onclick="checkForm()"> Press</button>
+
+<script>
+function checkForm() {
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function(){
+
+  if ( this.readyState == 4 && this.status == 200 ) {
+     var array = JSON.parse(this.responseText)
+    alert(array);
+  }
+} 
+httpRequest.open('GET', '/check');
+httpRequest.send();
+}
+</script>
+
+<%- include("footer.ejs")%>

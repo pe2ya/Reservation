@@ -1,0 +1,126 @@
+
+
+<%- include("header.ejs")%>
+        <main>
+            <div class="page default">
+
+                <div class="buttons">
+                    <div class="btn-container nb">
+                        <ion-icon name="list-circle-outline"></ion-icon>
+                    </div>
+                    <div class="btn-container nb">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page preview">
+                <div class="btn-container nb">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+
+                <div class="content">
+                        <h1>Yours template</h1>
+                        <div class="content" id="template"></div>
+                </div>
+            </div>
+
+            <div class="page constructor">
+                <div class="btn-container nb">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </div>
+
+                <div class="content">
+                    <div class="menu">
+                        <div class="section set" id="set">
+                            <form action="">
+                                <label class="width">
+                                    Set width
+                                    <input type="text" autocomplete="off">
+                                </label>
+                                <div class="setter">
+                                    <div class="btn-container">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </div>
+                                    
+                                    <div class="btn-container">
+                                        <ion-icon name="remove-outline"></ion-icon>
+                                    </div>
+                                </div>
+
+                                <label class="height">
+                                    Set height
+                                    <input type="text" autocomplete="off">
+                                </label>
+                                <div class="setter">
+                                    <div class="btn-container">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </div>
+                                    
+                                    <div class="btn-container">
+                                        <ion-icon name="remove-outline"></ion-icon>
+                                    </div>
+                                </div>
+                                <div class="btn-container edit" id="create-container">
+                                   Create
+                                </div>
+                            </form>
+
+                            <div class="constructor-title" id="constructor-title">Welcome To Constructor</div>
+                        </div>
+                        <div class="section add">
+                            <div class="btn-container edit" id="add-empty">
+                                Add empty
+                            </div>
+                            <div class="btn-container edit" id="add-premium">
+                                Add premium
+                            </div>
+                            <div class="btn-container edit" id="add-premium-plus">
+                                Add premium+
+                            </div>
+                            <div class="btn-container edit" id="edit-section">
+                                Edit section
+                            </div>
+                        </div>
+                        <div class="section create">
+                            <div class="btn-container edit" id="create">
+                                Create
+                                <ion-icon name="construct-outline"></ion-icon>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editor">
+                        <div id="el-container">
+                        </div>
+
+                        <div class="btn-container add" id="add">
+                            <ion-icon name="add-outline"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-window" id="constructor-form">
+                    <form class="form-content" method="POST">
+                        <h1>
+                            Last Changes
+                        </h1>
+
+                        <div class="container">
+                            <input type="text" placeholder="Template name" name="Tname" id="tname">
+                            <input type="text" placeholder="Enter Default price" name="defaultp" id="defaultp">
+                            <input type="text" placeholder="Enter Premium price" name="pprice" id="pprice">
+                            <input type="text" placeholder="Enter Premium plus price" name="ppp" id="ppp">
+                        </div>
+                        <div class="container">
+                            <button type="button" class="cancel" id="constructor-cansel"> Cancel</button>
+                            <button type="submit" id="constructor-comfirm">Comfirm</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </main>
+
+        <script src="/script.js"></script>
+        
+        <%- include("footer.ejs")%>
