@@ -1,13 +1,12 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('section', {
+    return sequelize.define('session', {
         id : {
             type: type.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-
-        position: type.INTEGER,
-        column_number: type.INTEGER,
-        row_number: type.INTEGER
+        user_id: type.INTEGER,
+        value: type.STRING,
+        loggined: type.BOOLEAN
     })
 }

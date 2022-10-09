@@ -7,6 +7,11 @@ module.exports = (sequelize, type) => {
         },
 
         num: type.INTEGER,
-        status: type.STRING
+        status: type.INTEGER,
+        reserved: type.BOOLEAN,
+        user_id: {
+            type: type.INTEGER,
+            defaultValue: null
+        }
     })
 }

@@ -6,7 +6,20 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
 
-       name: type.STRING,
-       //city: type.STRING
+       name: {
+           type: type.STRING
+       },
+
+       default_price: {
+           type: type.INTEGER
+       },
+
+       premium_price: {
+           type: type.INTEGER
+       },
+
+       premium_plus_price: {
+           type: type.INTEGER
+       }
     })
 }

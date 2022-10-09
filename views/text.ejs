@@ -1,20 +1,7 @@
 <%- include("header.ejs")%>
 
-<button onclick="checkForm()"> Press</button>
+<div id="aa"></div>
 
-<script>
-function checkForm() {
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.onreadystatechange = function(){
-
-  if ( this.readyState == 4 && this.status == 200 ) {
-     var array = JSON.parse(this.responseText)
-    alert(array);
-  }
-} 
-httpRequest.open('GET', '/check');
-httpRequest.send();
-}
-</script>
-
+<!-- <script src="/script.js"></script> -->
+<script src="/pages/cinemaList.js"></script>
 <%- include("footer.ejs")%>
