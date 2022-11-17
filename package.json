@@ -9,15 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "alert": "^5.0.10",
-    "body-parser": "^1.19.2",
+    "alert": "^5.1.1",
+    "axios": "^1.1.3",
+    "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
-    "ejs": "^3.1.6",
-    "express": "^4.17.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
     "mysql2": "^2.3.3",
     "nodeman": "^1.1.2",
-    "nodemon": "^2.0.15",
-    "sequelize": "^6.17.0",
-    "sqlite3": "^5.0.2"
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.25.6",
+    "sqlite3": "^5.1.2"
   }
 }

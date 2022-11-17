@@ -1,13 +1,16 @@
 <%- include("header.ejs")%>
 <main>
+    <form class="messanger" action="" id="form">
+        <div class="messages" id="container"></div>
 
+        <input type="hidden" id="hid_inp" name="lastId" value="" />
+
+        <div class="sender">
+        <input class="msg-text" type="text" id="text" />
+        <input id="project" type="submit" value="Send" />
+        </div>
+    </form>
 </main>
 
-<script>
-    var main = document.querySelector("main");
-    for(var i = 0; i < 100; i++)
-    {
-        main.innerHTML += "<p>" + i + "</p>";
-    }
-</script>
+<script src="/pages/chat.js"> </script>
 <%- include("footer.ejs")%>

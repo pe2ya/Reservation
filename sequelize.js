@@ -14,6 +14,7 @@ const SeanceModel = require('./models/seance')
 const SeatModel = require('./models/seat')
 const SectionModel = require('./models/section')
 const SessionModel = require('./models/session')
+const ChatModel = require('./models/chat')
 
 const User = UserModel(sequelize, Sequelize)
 const Cinema = CinemaModel(sequelize, Sequelize)
@@ -24,6 +25,7 @@ const Seance = SeanceModel(sequelize, Sequelize)
 const Seat = SeatModel(sequelize, Sequelize)
 const Section = SectionModel(sequelize, Sequelize)
 const Session = SessionModel(sequelize, Sequelize)
+const Chat = ChatModel(sequelize, Sequelize)
 const MovieGenre = sequelize.define('movie_genre', {})
 
 /*
@@ -39,6 +41,10 @@ Section.belongsTo(Cinema)
 Seat.belongsTo(Section)
 Section.belongsTo(Cinema)
 Session.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+Chat.belongsTo(User, {
   foreignKey: "user_id",
 });
 
@@ -69,6 +75,7 @@ module.exports = {
     Seat,
     Section,
     MovieGenre,
-    Session
+    Session,
+    Chat
 }
 

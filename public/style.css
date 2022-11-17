@@ -1035,3 +1035,71 @@ nav .form-content .container:nth-last-child(1) button
 #test {
     padding-inline: 5em;
 }
+
+.messanger {
+    padding: 0.2em;
+    width: 500px;
+    height: 550px;
+    margin: 1.5em auto;
+    border: 3px solid rgba(52, 52, 55, 0.4823529412);
+    background-color: #ececec;
+    border-radius: 5px;
+  }
+  .messanger .messages {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    border-radius: 5px;
+    margin: 0.5em auto;
+    height: 85%;
+    width: 95%;
+    background-color: #ffffff;
+  }
+  .messanger .messages::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .messanger .messages::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .messanger .messages::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .messanger .messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .messanger .messages::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  .messanger .messages .msg-item {
+    font-size: 1.2em;
+    align-self: flex-end;
+    margin: 10px;
+    margin-right: 10px;
+    padding: 0.2em 0.8em;
+    width: fit-content;
+    height: fit-content;
+    border: #6a6a6b;
+    border-radius: 5px;
+    background-color: #dadada;
+  }
+  .messanger .sender {
+    margin-top: 1em;
+    position: relative;
+    bottom: 0;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+  }
+  .messanger .sender #project {
+    padding: 0;
+    width: 20%;
+    margin: 0 0.2em;
+  }
+  .messanger .sender .msg-text {
+    padding-left: 1em;
+    width: 75%;
+  }

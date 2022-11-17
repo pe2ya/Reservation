@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const fs = require('fs');
 const Temp = require('./public/template.js');
 const app = express();
-const port = 22106;
+const port = 8080;
 
 const { 
     User,
@@ -41,9 +41,15 @@ const {
     GetSeatArray,
     RecervedSeat,
     sleep,
+    GetAllMessages,
+    CreateMessage,
 } = require('./methods/dbm');
 
+const {
+    LogIP
+} = require('./methods/lm')
 
+app.set('trust proxy', true)
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
@@ -54,23 +60,29 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+
+    await LogIP("./login_log.dat")
     res.render("index");
 });
 
 app.get('/list', (req, res) => {
+
     res.render("text");
 });
 
 app.get('/cinema/', (req, res) => {
+
     res.render("theater");
 });
 
 app.get('/home', (req, res) => {
+
     res.render("home");
 });
 
-app.get('/signup', (req,res) =>{
+app.get('/signup', (req, res) =>{
+
     res.render("signup", {text: ""});
 })
  
@@ -92,6 +104,22 @@ app.get('/api/theater/:id', async (req, res) => {
         res.redirect('/'); 
     }
 });
+
+app.post('/messages/get', async (req, res) => {
+
+    var id = req.body.id;
+    messages = await GetAllMessages(id);
+
+    res.send(messages);
+  });
+  
+  app.post('/messages/create', async (req, res) => {
+
+    var text = req.body.text;
+  
+    CreateMessage(text, null);
+  });
+
 
 app.post('/api/theater/reservation/:seat', async (req, res) => {
     var cookie =  GetcookieByName(req, "session");

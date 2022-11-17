@@ -8,7 +8,8 @@ const {
     Seat,
     Section,
     MovieGenre,
-    Session
+    Session,
+    Chat,
 } = require('../sequelize');
 
 const {
@@ -22,7 +23,10 @@ const {
     Getcookies,
     GetcookieByName
 } = require('./cm');
+
 const { consumers } = require('stream');
+
+const { Op } = require('sequelize');
 
 async function CreateCinema(obj) {
     var result;
@@ -185,6 +189,37 @@ async function RecervedSeat(id, bool, userId)
     }
 }
 
+async function GetAllMessages(last_id = false) {
+    var result;
+
+    if (!last_id) result = await Chat.findAll();
+    else {
+        result = await Chat.findAll(
+            {
+                where: {
+                    id: { 
+                        [Op.gt]: last_id 
+                    }
+                },
+            }
+        );
+    }
+
+  return result;
+}
+
+async function CreateMessage(text, id) {
+  var sec = new Date().getTime();
+
+    await Chat.create(
+        {
+            text: text,
+            user_id: id,
+            time: sec,
+        }
+  );
+}
+
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -204,5 +239,7 @@ module.exports = {
     GetTemplate,
     GetSeatArray,
     RecervedSeat,
-    sleep
+    sleep,
+    GetAllMessages,
+    CreateMessage,
 };
