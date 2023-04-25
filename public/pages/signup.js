@@ -17,13 +17,13 @@ function SendData() {
   // Check if all required fields are filled in
   if (!login_input || !password_input || !cpassword_input) {
     alert("Please fill in all required fields.");
-    return;
+    return false;
   }
 
   // Check if passwords match
   if (password_input !== cpassword_input) {
     alert("Passwords do not match.");
-    return;
+    return false;
   }
 
   // Create object with input values

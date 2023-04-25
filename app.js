@@ -46,6 +46,15 @@ const {
 } = require('./methods/dbm');
 
 const {
+    AddGenre,
+    GetGenreId,
+    CreateMovie,
+    GetMovieId,
+    CreateSeance,
+    GetSeanceId
+} = require('./methods/mom.js')
+
+const {
     LogIP
 } = require('./methods/lm')
 

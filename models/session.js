@@ -5,8 +5,16 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement: true
         },
-        user_id: type.INTEGER,
-        value: type.STRING,
-        loggined: type.BOOLEAN
+        user_id: {
+            type: type.INTEGER
+        },
+
+        value: {
+            type: type.STRING
+        },
+
+        loggined: {
+            type: type.BOOLEAN
+        }
     })
 }

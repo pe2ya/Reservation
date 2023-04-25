@@ -11,7 +11,13 @@ module.exports = (sequelize, type) => {
             type: type.STRING,
             allowNull: false,
           },
-          user_id: type.INTEGER,
-          time: type.STRING,
+
+          user_id: {
+            type: type.INTEGER
+          },
+          
+          time: {
+            type: type.STRING
+          }
     })
 }

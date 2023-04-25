@@ -24,9 +24,13 @@ const {
     GetcookieByName
 } = require('./cm');
 
-const { consumers } = require('stream');
+const { 
+    consumers 
+} = require('stream');
 
-const { Op } = require('sequelize');
+const { 
+    Op 
+} = require('sequelize');
 
 async function CreateCinema(obj) {
     var result;
@@ -88,79 +92,83 @@ async function GetAllCinemas()
     })
 
     return result;
-}
+}     
 
-async function GetTemplate(id)
-{
-    var cinema = await Cinema.findByPk(id);
-    let promise = Promise.resolve()
-    var result; 
+async function GetTemplate(id) {
+    try {
+        let promise = Promise.resolve()
+        var cinema = await Cinema.findByPk(id);
+        if (!cinema) return null;
     
-    if(!cinema) return null
-
-    var sectionsFromDb = await Section.findAll({
-        where:{
-            cinemaId: cinema.id
-        }
-    })
-
-    await sectionsFromDb.sort((a, b) => {
-        return a.position - b.position
-    });
-    var sections = await GetSeatArray(sectionsFromDb);
-
-    promise.then(() => {
-        result = {
+        var sectionsFromDb = await Section.findAll({
+            where: {
+            cinemaId: cinema.id,
+            },
+        });
+    
+        await sectionsFromDb.sort((a, b) => {
+            return a.position - b.position;
+        });
+        var sections = await GetSeatArray(sectionsFromDb);
+    
+        const result = {
             name: cinema.name,
             defaultp: cinema.default_price,
             pprice: cinema.premium_price,
             ppprice: cinema.premium_plus_price,
-            template: sections
-        }
-    })
-
-    return promise.then(() => result);
-}
+            template: sections,
+        };
+    
+        return result;
+    } catch (err) {
+        console.error(err);
+    }
+  }
+  
 
 async function GetSeatArray(sectArray)
 {
-    var result = [];
-    await sectArray.asyncForEach(async (el) => {
-        var array = [];
-        var obj = {
-            columnN: el.column_number,
-            rowN: el.row_number
-        }
-
-        var seatsFromDb = await Seat.findAll({
-            where: {
-                SectionId: el.id
+    try {
+        var result = [];
+        await sectArray.asyncForEach(async (el) => {
+            var array = [];
+            var obj = {
+                columnN: el.column_number,
+                rowN: el.row_number
             }
+
+            var seatsFromDb = await Seat.findAll({
+                where: {
+                    SectionId: el.id
+                }
+            })
+
+            seatsFromDb.sort((a, b) => {
+                return a.num - b.num
+            });
+            await seatsFromDb.forEach(seat => {
+                let sStatus = seat.status;
+                if(seat.reserved)
+                {
+                    sStatus = 10;
+                }
+
+                var seatObj = {
+                    status: sStatus,
+                    id: seat.id
+                }
+                array.push(seatObj);
+            })
+
+            obj.section = array
+            result.push(obj)
         })
-
-        seatsFromDb.sort((a, b) => {
-            return a.num - b.num
-        });
-        await seatsFromDb.forEach(seat => {
-            let sStatus = seat.status;
-            if(seat.reserved)
-            {
-                sStatus = 10;
-            }
-
-            var seatObj = {
-                status: sStatus,
-                id: seat.id
-            }
-            array.push(seatObj);
-        })
-
-        obj.section = array
-        result.push(obj)
-    })
 
     // await sleep(25);
     return result
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 async function RecervedSeat(id, bool, userId) 
@@ -192,7 +200,9 @@ async function RecervedSeat(id, bool, userId)
 async function GetAllMessages(last_id = false) {
     var result;
 
-    if (!last_id) result = await Chat.findAll();
+    if (!last_id) {
+        result = await Chat.findAll();
+    }
     else {
         result = await Chat.findAll(
             {

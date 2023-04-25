@@ -8,17 +8,20 @@ module.exports = (sequelize, type) => {
         login: {
             type: type.STRING,
             validate: {
-                is: /^[A-Za-z0-9]{3,24}$/,
+                is: /^[A-Za-z0-9]{1,24}$/,
                 notEmpty: true
             }
         },
         password: {
             type: type.STRING,
             validate: {
-                is: /^[A-Za-z0-9]{8,24}$/,
+                is: /^[A-Za-z0-9]{3,24}$/,
                 notEmpty: true
             }
         },
-        role: type.STRING
+
+        role: {
+            type: type.STRING
+        }
     })
 }

@@ -6,8 +6,16 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
 
-        position: type.INTEGER,
-        column_number: type.INTEGER,
-        row_number: type.INTEGER
+        position: {
+            type: type.INTEGER
+        },
+        
+        column_number: {
+            type: type.INTEGER
+        },
+
+        row_number: {
+            type: type.INTEGER
+        },
     })
 }

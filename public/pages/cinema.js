@@ -71,18 +71,26 @@ start();
 
 btn.onclick = function() {
     var session = GetcookieByName("session")
+
+    console.log(session)
     
-    if(session.length === 200 || session)
+    if(session)
     {
+        if(session.length === 200 ) {
 
-        var array = document.querySelectorAll('.element.active');
+            var array = document.querySelectorAll('.element.active');
 
-        array.forEach(el => {
-            Reservation(el.id);
-            el.classList.remove("active")
-        })
-        btn.classList.remove("active")
-        start();
+            array.forEach(el => {
+                Reservation(el.id);
+                el.classList.remove("active")
+            })
+            btn.classList.remove("active")
+            start();
+        }
+        else
+        {
+            alert("You need log in at first")
+        }
     }
     else
     {

@@ -6,9 +6,18 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
 
-        num: type.INTEGER,
-        status: type.INTEGER,
-        reserved: type.BOOLEAN,
+        num: {
+            type: type.INTEGER
+        },
+
+        status: {
+            type: type.INTEGER
+        },
+
+        reserved: {
+            type: type.BOOLEAN
+        },
+
         user_id: {
             type: type.INTEGER,
             defaultValue: null

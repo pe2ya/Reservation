@@ -6,9 +6,8 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
 
-        date: type.DATE,
-        default_price: type.INTEGER,
-        premium_price: type.INTEGER,
-        premium_plus_price: type.INTEGER
+        date: {
+            type: type.DATE
+        }
     })
 }
