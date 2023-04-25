@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const fs = require('fs');
 const Temp = require('./public/template.js');
 const app = express();
-const port = 8080;
+const port = 80;
 
 const { 
     User,
@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({
 
 app.get('/', async (req, res) => {
 
-    await LogIP("./login_log.dat")
+    // await LogIP("./login_log.dat")
     res.render("index");
 });
 
@@ -212,27 +212,35 @@ app.post('/api/user/login', async (req, res) => {
 
 app.post("/api/user/signup", (req, res) =>{
 
-    var name = req.body.login
-    var passw = req.body.password
-    var cpassw = req.body.cpassword
+    var data = req.body
 
-    if(passw === cpassw)
-    {
+    var name = data.login
+    var passw = data.password
+    var cpassw = data.cpassword
+
+    if (passw === cpassw) {
         User.create({
-                login: name,
-                password: passw,
-                role: "user"
-            })
-            .then(user => {
-                console.log(user)
-            })
-    }
-    else
-    {
-        console.log("passwords are not same")
-    }
-
-    res.redirect('/');
+            login: name,
+            password: passw,
+            role: "user"
+          })
+          .then(user => {
+            console.log(user)
+            var response = {
+                message: "/"
+            }
+            res.status(200).json(response);
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).send("Internal Server Error");
+          });
+      } else {
+        var response = {
+          message: "Passwords do not match"
+        }
+        return res.status(400).json(response);
+      }
 });
 
 app.get('/api/user/logout', async (req, res) => {

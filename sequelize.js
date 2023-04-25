@@ -59,6 +59,7 @@ Chat.belongsTo(User, {
 // Section.sync({ force: true })
 // MovieGenre.sync({ force: true })
 // Session.sync({ force: true })
+// Chat.sync({force: true})
 
 sequelize.sync({ force: false })
   .then(() => {

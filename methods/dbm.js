@@ -30,20 +30,15 @@ const { Op } = require('sequelize');
 
 async function CreateCinema(obj) {
     var result;
-    try {
-        await Cinema.create({
-            name: obj.name, 
-            default_price: obj.defaultp,
-            premium_price: obj.pprice,
-            premium_plus_price: obj.ppprice
-        })
-        .then(cinema => {
-            result = cinema;
-        })
-
-    } catch (err) {
-        console.log(err)
-    }
+    await Cinema.create({
+        name: obj.name, 
+        default_price: obj.defaultp,
+        premium_price: obj.pprice,
+        premium_plus_price: obj.ppprice
+    })
+    .then(cinema => {
+        result = cinema;
+    })
 
     return result;
 }
@@ -51,40 +46,30 @@ async function CreateCinema(obj) {
 async function CreateSection(position, cinemaId, obj) {
  
     var result;
-    try {
-        await Section.create({
-            position: position,
-            column_number: obj.columnN,
-            row_number: obj.rowN,
-            cinemaId: cinemaId
-        })
-        .then(section => {
-            result = section;
-        })
-    
-    } catch (err) {
-        console.log(err)
-    }
+    await Section.create({
+        position: position,
+        column_number: obj.columnN,
+        row_number: obj.rowN,
+        cinemaId: cinemaId
+    })
+    .then(section => {
+        result = section;
+    })
 
     return result;
 }
 
 async function CreateSeat(num, status, sectionId) {
     var result;
-    try {
-        await Seat.create({
-            num: num,
-            status: status,
-            reserved: false,
-            sectionId: sectionId
-        })
-        .then(seat => {
-            result = seat;
-        })
-    
-    } catch (err) {
-        console.log(err)
-    }
+    await Seat.create({
+        num: num,
+        status: status,
+        reserved: false,
+        sectionId: sectionId
+    })
+    .then(seat => {
+        result = seat;
+    })
 
     return result;
 }
@@ -92,8 +77,6 @@ async function CreateSeat(num, status, sectionId) {
 async function GetAllCinemas()
 {
     var result = [];
-
-    try {
     var array = await Cinema.findAll();
 
     array.forEach(cinema => {
@@ -103,48 +86,38 @@ async function GetAllCinemas()
         }
         result.push(obj);
     })
-    
-    } catch (err) {
-        console.log(err)
-    }
 
     return result;
 }
 
 async function GetTemplate(id)
 {
+    var cinema = await Cinema.findByPk(id);
+    let promise = Promise.resolve()
     var result; 
-
-    try {
-        var cinema = await Cinema.findByPk(id);
-        let promise = Promise.resolve()
-        
-        if(!cinema) return null
-
-        var sectionsFromDb = await Section.findAll({
-            where:{
-                cinemaId: cinema.id
-            }
-        })
-
-        await sectionsFromDb.sort((a, b) => {
-            return a.position - b.position
-        });
-        var sections = await GetSeatArray(sectionsFromDb);
-
-        promise.then(() => {
-            result = {
-                name: cinema.name,
-                defaultp: cinema.default_price,
-                pprice: cinema.premium_price,
-                ppprice: cinema.premium_plus_price,
-                template: sections
-            }
-        })
     
-    } catch (err) {
-        console.log(err)
-    }
+    if(!cinema) return null
+
+    var sectionsFromDb = await Section.findAll({
+        where:{
+            cinemaId: cinema.id
+        }
+    })
+
+    await sectionsFromDb.sort((a, b) => {
+        return a.position - b.position
+    });
+    var sections = await GetSeatArray(sectionsFromDb);
+
+    promise.then(() => {
+        result = {
+            name: cinema.name,
+            defaultp: cinema.default_price,
+            pprice: cinema.premium_price,
+            ppprice: cinema.premium_plus_price,
+            template: sections
+        }
+    })
 
     return promise.then(() => result);
 }
@@ -152,45 +125,39 @@ async function GetTemplate(id)
 async function GetSeatArray(sectArray)
 {
     var result = [];
-    try {
+    await sectArray.asyncForEach(async (el) => {
+        var array = [];
+        var obj = {
+            columnN: el.column_number,
+            rowN: el.row_number
+        }
 
-        await sectArray.asyncForEach(async (el) => {
-            var array = [];
-            var obj = {
-                columnN: el.column_number,
-                rowN: el.row_number
+        var seatsFromDb = await Seat.findAll({
+            where: {
+                SectionId: el.id
+            }
+        })
+
+        seatsFromDb.sort((a, b) => {
+            return a.num - b.num
+        });
+        await seatsFromDb.forEach(seat => {
+            let sStatus = seat.status;
+            if(seat.reserved)
+            {
+                sStatus = 10;
             }
 
-            var seatsFromDb = await Seat.findAll({
-                where: {
-                    SectionId: el.id
-                }
-            })
-
-            seatsFromDb.sort((a, b) => {
-                return a.num - b.num
-            });
-            await seatsFromDb.forEach(seat => {
-                let sStatus = seat.status;
-                if(seat.reserved)
-                {
-                    sStatus = 10;
-                }
-
-                var seatObj = {
-                    status: sStatus,
-                    id: seat.id
-                }
-                array.push(seatObj);
-            })
-
-            obj.section = array
-            result.push(obj)
+            var seatObj = {
+                status: sStatus,
+                id: seat.id
+            }
+            array.push(seatObj);
         })
-        
-    } catch (err) {
-        console.log(err)
-    }
+
+        obj.section = array
+        result.push(obj)
+    })
 
     // await sleep(25);
     return result
@@ -225,44 +192,32 @@ async function RecervedSeat(id, bool, userId)
 async function GetAllMessages(last_id = false) {
     var result;
 
-    try {
-
-        if (!last_id) result = await Chat.findAll();
-        else {
-            result = await Chat.findAll(
-                {
-                    where: {
-                        id: { 
-                            [Op.gt]: last_id 
-                        }
-                    },
-                }
-            );
-        }
-        
-    } catch (err) {
-        console.log(err)
+    if (!last_id) result = await Chat.findAll();
+    else {
+        result = await Chat.findAll(
+            {
+                where: {
+                    id: { 
+                        [Op.gt]: last_id 
+                    }
+                },
+            }
+        );
     }
 
   return result;
 }
 
 async function CreateMessage(text, id) {
+  var sec = new Date().getTime();
 
-    try {
-        var sec = new Date().getTime();
-
-            await Chat.create(
-                {
-                    text: text,
-                    user_id: id,
-                    time: sec,
-                }
-        );
-        
-    } catch (err) {
-        console.log(err)
-    }
+    await Chat.create(
+        {
+            text: text,
+            user_id: id,
+            time: sec,
+        }
+  );
 }
 
 

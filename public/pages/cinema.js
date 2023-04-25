@@ -13,23 +13,25 @@ function Ajax(id) {
 var httpRequest = new XMLHttpRequest();
 httpRequest.onreadystatechange = function(){
 
-    if ( this.readyState == 4 && this.status == 200 ) {
-        var template = JsonToObj(this.responseText);
-        ShowTemplate(template, "test")
-        
-        var els = document.querySelectorAll(".element")
-        els.forEach(el => {
-            let res = el.className.includes("empty") || el.className.includes("reserved")
-            if(!res)
-            {
-                el.onclick = function() {
-                    // Reservation(el.id)
-                    Check(el);
-                    console.log("clicked " + el.id)
-                }
+    if ( this.readyState == 4) {
+        if(this.status == 200 ) {
+            var template = JsonToObj(this.responseText);
+            ShowTemplate(template, "test")
+            
+            var els = document.querySelectorAll(".element")
+            els.forEach(el => {
+                let res = el.className.includes("empty") || el.className.includes("reserved")
+                if(!res)
+                {
+                    el.onclick = function() {
+                        // Reservation(el.id)
+                        Check(el);
+                        console.log("clicked " + el.id)
+                    }
 
-            }
-        })
+                }
+            })
+        }
     }
 } 
 httpRequest.open('GET', '/api/theater/' + id);

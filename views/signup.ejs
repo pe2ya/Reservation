@@ -10,20 +10,22 @@
 </a>
 <% if(!text) {%>
 <div class="align-center border signup">
-    <form class="form-content" method="POST" action="/api/user/signup">
+    <form id="form" class="form-content" action="">
         <h1>
             Sign up
         </h1>
 
         <div class="container">
-            <input type="text" placeholder="Set Login" name="login">
-            <input type="text" placeholder="Set Password" name="password">
-            <input type="text" placeholder="Confirm Password" name="cpassword">
+            <input id="login" type="text" placeholder="Set Login" name="login">
+            <input id="password" type="text" placeholder="Set Password" name="password">
+            <input id="cpassword" type="text" placeholder="Confirm Password" name="cpassword">
         </div>
         <div class="container">
-            <button type="submit" id="login-comfirm">Comfirm</button>
+            <button id="submit" type="submit" id="login-comfirm">Comfirm</button>
         </div>
     </form>
+
+    <script src="/pages/signup.js"></script>
     <% } else {%>
         <div class="message">
             <%- text %>
